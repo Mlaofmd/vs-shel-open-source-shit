@@ -195,6 +195,12 @@ class ChartingState extends MusicBeatState
 	var value3InputText:FlxUIInputText;
 	var currentSongName:String;
 
+
+	var lilBuddiesBox:FlxUICheckBox;
+	var lilStage:FlxSprite;
+	var lilBf:FlxSprite;
+	var lilOpp:FlxSprite;
+
 	public var colorSwap:ColorSwap = null;
 	
 	var zoomTxt:FlxText;
@@ -316,6 +322,37 @@ class ChartingState extends MusicBeatState
 		add(eventIcon);
 		add(leftIcon);
 		add(rightIcon);
+
+		lilStage = new FlxSprite(32, 432).loadGraphic(Paths.image("lilStage"));
+		lilStage.scrollFactor.set();
+		add(lilStage);
+
+		lilBf = new FlxSprite(32, 432).loadGraphic(Paths.image("lilBf"), true, 300, 256);
+		lilBf.animation.add("idle", [0, 1], 12, true);
+		lilBf.animation.add("0", [3, 4, 5], 12, false);
+		lilBf.animation.add("1", [6, 7, 8], 12, false);
+		lilBf.animation.add("2", [9, 10, 11], 12, false);
+		lilBf.animation.add("3", [12, 13, 14], 12, false);
+		lilBf.animation.add("yeah", [17, 20, 23], 12, false);
+		lilBf.animation.play("idle");
+		lilBf.animation.finishCallback = function(name:String){
+			lilBf.animation.play(name, true, false, lilBf.animation.getByName(name).numFrames - 2);
+		}
+		lilBf.scrollFactor.set();
+		add(lilBf);
+
+		lilOpp = new FlxSprite(32, 432).loadGraphic(Paths.image("lilOpp"), true, 300, 256);
+		lilOpp.animation.add("idle", [0, 1], 12, true);
+		lilOpp.animation.add("0", [3, 4, 5], 12, false);
+		lilOpp.animation.add("1", [6, 7, 8], 12, false);
+		lilOpp.animation.add("2", [9, 10, 11], 12, false);
+		lilOpp.animation.add("3", [12, 13, 14], 12, false);
+		lilOpp.animation.play("idle");
+		lilOpp.animation.finishCallback = function(name:String){
+			lilOpp.animation.play(name, true, false, lilOpp.animation.getByName(name).numFrames - 2);
+		}
+		lilOpp.scrollFactor.set();
+		add(lilOpp);
 
 		leftIcon.setPosition(GRID_SIZE + 10, -120);
 		rightIcon.setPosition(GRID_SIZE * 5.2, -120);
@@ -441,6 +478,7 @@ class ChartingState extends MusicBeatState
 		zoomTxt = new FlxText(10, 10, 0, "Zoom: 1 / 1", 16);
 		zoomTxt.scrollFactor.set();
 		add(zoomTxt);
+
 		
 		updateGrid();
 
@@ -787,6 +825,15 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		}
 		stepperSectionBPM.name = 'section_bpm';
 		blockPressWhileTypingOnStepper.push(stepperSectionBPM);
+
+		lilBuddiesBox = new FlxUICheckBox(10, 90, null, null, "Lil' Buddies", 100);
+			lilBuddiesBox.checked = true;
+			lilBuddiesBox.callback = function()
+			{
+				lilBf.visible = lilBuddiesBox.checked;
+				lilOpp.visible = lilBuddiesBox.checked;
+				lilStage.visible = lilBuddiesBox.checked;
+			};
 
 
 		var check_eventsSec:FlxUICheckBox = null;
@@ -1973,6 +2020,9 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 					FlxG.sound.music.pause();
 					if(vocals != null) vocals.pause();
 					if(vocals2 != null) vocals2.pause();
+
+					lilBf.animation.play("idle");
+					lilOpp.animation.play("idle");
 				}
 				else
 				{
@@ -1989,6 +2039,9 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 						vocals2.play();
 					}
 					FlxG.sound.music.play();
+
+					lilBf.animation.play("idle");
+					lilOpp.animation.play("idle");
 				}
 			}
 
@@ -2012,6 +2065,9 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 					vocals2.pause();
 					vocals2.time = FlxG.sound.music.time;
 				}
+
+				lilBf.animation.play("idle");
+				lilOpp.animation.play("idle");
 			}
 
 			//ARROW VORTEX SHIT NO DEADASS
@@ -2025,6 +2081,9 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				var holdingShift:Float = 1;
 				if (FlxG.keys.pressed.CONTROL) holdingShift = 0.25;
 				else if (FlxG.keys.pressed.SHIFT) holdingShift = 4;
+
+				lilBf.animation.play("idle");
+				lilOpp.animation.play("idle");
 
 				var daTime:Float = 700 * FlxG.elapsed * holdingShift;
 
@@ -2229,6 +2288,17 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 
 			if(note.strumTime <= Conductor.songPosition) {
 				note.alpha = 0.4;
+
+				/*if (_song.notes[curSec].mustHitSection)
+				{
+					lilBf.animation.play("" + (x.data % 4), true);
+				}
+				else
+				{
+					lilOpp.animation.play("" + (x.data % 4), true);
+				}*/
+
+
 				if(note.strumTime > lastConductorPos && FlxG.sound.music.playing && note.noteData > -1) {
 					var data:Int = note.noteData % 4;
 					var noteDataToCheck:Int = note.noteData;
@@ -2247,10 +2317,41 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 						}
 					
 						data = note.noteData;
+						/*if(note.absoluteNumber < 4 && _song.notes[curSec])
+						{
+							note.editorOppNote = true;
+						}
+
+						else if(note.absoluteNumber > 3 && !_song.notes[curSec])
+						{
+							note.editorOppNote = true;
+						}
+						*/
+						if(note.absoluteNumber < 4 && _song.notes[curSec].mustHitSection)
+						{
+							note.editorBFNote = true;
+						}
+
+						else if(note.absoluteNumber > 3 && !_song.notes[curSec].mustHitSection)
+						{
+							note.editorBFNote = true;
+						}
+
+
 						if(note.mustPress != _song.notes[curSec].mustHitSection)
 						{
 							data += 4;
+
+							lilOpp.animation.play("" + (note.noteData % 4), true);
+							if (note.editorBFNote)
+								lilBf.animation.play("" + (note.noteData % 4), true);
+							else
+								lilOpp.animation.play("" + (note.noteData % 4), true);
 						}
+						/*else
+						{
+							lilOpp.animation.play("" + (note.noteData % 4), true);
+						}*/
 					}
 				}
 			}
@@ -2746,6 +2847,9 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 			vocals2.pause();
 			vocals2.time = FlxG.sound.music.time;
 		}
+
+		lilBf.animation.play("idle");
+		lilOpp.animation.play("idle");
 		updateCurStep();
 
 		updateGrid();
@@ -2772,6 +2876,9 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 					vocals2.pause();
 					vocals2.time = FlxG.sound.music.time;
 				}
+
+				lilBf.animation.play("idle");
+				lilOpp.animation.play("idle");
 				updateCurStep();
 			}
 
@@ -2795,6 +2902,8 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		{
 			changeSection();
 		}
+		lilBf.animation.play("idle");
+		lilOpp.animation.play("idle");
 		Conductor.songPosition = FlxG.sound.music.time;
 		if(!waveformChanged) updateWaveform();
 	}

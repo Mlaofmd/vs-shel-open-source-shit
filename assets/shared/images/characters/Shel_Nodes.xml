@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Shel Nodes.png">
+<SubTexture name="Shel Nodes idle0000" x="2050" y="1189" width="529" height="1071" frameX="-362" frameY="-149" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes idle0001" x="3420" y="0" width="551" height="1038" frameX="-365" frameY="-183" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes idle0002" x="550" y="2266" width="552" height="1054" frameX="-365" frameY="-167" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes idle0003" x="0" y="2266" width="550" height="1061" frameX="-363" frameY="-160" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes idle0004" x="2883" y="0" width="537" height="1068" frameX="-362" frameY="-152" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes idle0005" x="1521" y="1189" width="529" height="1071" frameX="-362" frameY="-149" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes Left0000" x="2100" y="0" width="783" height="1079" frameX="-96" frameY="-142" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes Left0001" x="0" y="1189" width="762" height="1077" frameX="-119" frameY="-144" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes Left0002" x="762" y="1189" width="759" height="1076" frameX="-122" frameY="-145" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes down0000" x="645" y="3327" width="661" height="947" frameX="-370" frameY="-274" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes down0001" x="0" y="3327" width="645" height="967" frameX="-368" frameY="-254" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes down0002" x="3971" y="0" width="612" height="976" frameX="-368" frameY="-245" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes right0000" x="2415" y="2266" width="652" height="1039" frameX="-370" frameY="-182" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes right0001" x="1764" y="2266" width="651" height="1041" frameX="-368" frameY="-180" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes right0002" x="1102" y="2266" width="662" height="1043" frameX="-368" frameY="-178" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes up0000" x="0" y="0" width="703" height="1189" frameX="-189" frameY="-32" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes up0001" x="703" y="0" width="700" height="1156" frameX="-189" frameY="-65" frameWidth="1280" frameHeight="1280" />
+<SubTexture name="Shel Nodes up0002" x="1403" y="0" width="697" height="1144" frameX="-192" frameY="-77" frameWidth="1280" frameHeight="1280" />
+</TextureAtlas>

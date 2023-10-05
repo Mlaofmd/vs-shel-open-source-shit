@@ -56,6 +56,7 @@ class EditorPlayState extends MusicBeatState
 
 	var generatedMusic:Bool = false;
 	var vocals:FlxSound;
+	var vocals2:FlxSound;
 
 	var startOffset:Float = 0;
 	var startPos:Float = 0;
@@ -119,10 +120,13 @@ class EditorPlayState extends MusicBeatState
 		splash.alpha = 0.0;
 		grpNoteSplashes.add(splash);
 		
-		if (PlayState.SONG.needsVoices)
+		if (PlayState.SONG.needsVoices) {
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, PlayState.SONG.postfix));
-		else
+			vocals2 = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, PlayState.SONG.postfix + '-Second'));
+		} else {
 			vocals = new FlxSound();
+			vocals2 = new FlxSound();
+		}
 
 		generateSong(PlayState.SONG.song);
 		#if (LUA_ALLOWED && MODS_ALLOWED)

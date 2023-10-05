@@ -142,7 +142,7 @@ class HealthIcon extends FlxSprite
 
 								spriteType = "trio";
 
-								if(char.endsWith('-win')) spriteType = "trioWIN";
+								//if(char.endsWith('-win')) spriteType = "trioWIN"; I REMOVED THIS SHIT FOR THAT I CANT GET WINNING ICONS WORK - Mlaofmd
 
 							case 600:
 								loadGraphic(file, true, Math.floor(width / 4), Math.floor(height)); // 
@@ -218,15 +218,15 @@ class HealthIcon extends FlxSprite
 	public dynamic function updateAnim(health:Float){ // Dynamic to prevent having like 20 if statements
 		    switch(spriteType)
 		    {
-				case 'trio':
+				/*case 'trio':
 				    if (health < 10)
 						animation.curAnim.curFrame = 2;
 					else if (health < 30) 
 						animation.curAnim.curFrame = 1;
 					else 
-						animation.curAnim.curFrame = 0;
+						animation.curAnim.curFrame = 0;*/
 
-		        case 'trioWIN':
+		        case 'trio':
 		    	    if (health < 20) 
 		    	    	animation.curAnim.curFrame = 1;
 		    	   else if (health > 80)
@@ -282,14 +282,34 @@ class HealthIcon extends FlxSprite
 			case 'right':
 				this.isPlayer ? {
 					x = PlayState.instance.healthBar.x + (PlayState.instance.healthBar.width * (FlxMath.remapToRange(PlayState.instance.healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * scale.x - 150) / 2 - iconOffset;
+					origin.x = -30;
+					origin.x = -10;
+					origin.y = -10;
+					origin.y = -5;
+					//y = 452 + (125 * scale.y);
 				} : {
 					x = PlayState.instance.healthBar.x + (PlayState.instance.healthBar.width * (FlxMath.remapToRange(PlayState.instance.healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * scale.x) / 2 - iconOffset * 2;
-				}	
+					origin.x = -30;
+					origin.x = -10;
+					origin.y = -10;
+					origin.y = -5;
+					//y = 452 + (125 * scale.y);
+				}
 			case 'left':
 				this.isPlayer ? {
-				        x = PlayState.instance.healthBar.x + (PlayState.instance.healthBar.width * (FlxMath.remapToRange(100 - PlayState.instance.healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * scale.x) / 2 - iconOffset * 2;
+				    x = PlayState.instance.healthBar.x + (PlayState.instance.healthBar.width * (FlxMath.remapToRange(100 - PlayState.instance.healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * scale.x) / 2 - iconOffset * 2;
+				    origin.y = -5;
+					origin.x = -10;
+					origin.y = -10;
+					origin.x = -30;
+				    //y = 452 + (125 * scale.y);
 				} : {
 					x = PlayState.instance.healthBar.x + (PlayState.instance.healthBar.width * (FlxMath.remapToRange(100 - PlayState.instance.healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * scale.x - 150) / 2 - iconOffset;
+					origin.y = -5;
+					origin.x = -10;
+					origin.y = -10;
+					origin.x = -30;
+					//y = 452 + (125 * scale.y);
 				}
 		}
 

@@ -56,6 +56,9 @@ class Note extends FlxSprite
 
 	public var colorSwap:ColorSwap;
 	public var inEditor:Bool = false;
+	public var editorOppNote:Bool = false;
+	public var editorBFNote:Bool = false;
+	public var absoluteNumber:Int;
 
 	public var animSuffix:String = '';
 	public var gfNote:Bool = false;

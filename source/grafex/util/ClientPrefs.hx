@@ -48,6 +48,7 @@ class ClientPrefs {
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var imagesPersist:Bool = false;
 	public static var ghostTapping:Bool = false;
+	public static var lateDamage:Bool = true;
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var controllerMode:Bool = false;
@@ -161,6 +162,8 @@ class ClientPrefs {
 		FlxG.save.data.safeFrames = safeFrames;
 		FlxG.save.data.gameplaySettings = gameplaySettings;
 		FlxG.save.data.controllerMode = controllerMode;
+
+		FlxG.save.data.lateDamage = lateDamage;
 	
 		FlxG.save.flush();
 
@@ -256,6 +259,10 @@ class ClientPrefs {
 			}
 		}
 
+		if(FlxG.save.data.lateDamage != null) {
+			lateDamage = FlxG.save.data.lateDamage;
+		}
+		
 		if(FlxG.save.data.gameplaySettings != null)
 			{
 				var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;

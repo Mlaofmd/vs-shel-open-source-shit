@@ -376,6 +376,7 @@ class TitleState extends MusicBeatState
 			callScript("onCoolTextBeat", [sickBeats]);
 		}
 		callScript("onBeatHit", [curBeat]);
+		FlxTween.tween(FlxG.camera, {zoom:1.02}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
 	}
 
 	public static function getTitleData()

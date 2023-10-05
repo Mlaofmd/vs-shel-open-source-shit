@@ -72,7 +72,7 @@ class PrelaunchingState extends MusicBeatState
 		return;
 	}
 
-        txts.push(["Also, we wish you a pleasant game! \n  - PurSnake", '']);
+        txts.push(["silly shit lmao \n  - Vs Shel Team", '']);
 
         txt = new FlxText(0, 300, FlxG.width, '', 32);
         txt.borderColor = FlxColor.BLACK;

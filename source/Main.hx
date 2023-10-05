@@ -61,11 +61,11 @@ class Main extends Sprite
 		initialState: PrelaunchingState, // initial game state
 		zoom: -1.0, // game state bounds
 		framerate: 120, // default framerate
-		skipSplash: true, // if the default flixel splash screen should be skipped
+		skipSplash: false, // if the default flixel splash screen should be skipped
 		startFullscreen: false // if the game should start at fullscreen mode
 	};
 
-	public static var appTitle:String = "Friday Night Funkin': Grafex Engine";
+	public static var appTitle:String = "Friday Night Funkin': Vs Shel";
 
 	public static var appConfig:ConfigFile;
 
@@ -74,7 +74,7 @@ class Main extends Sprite
 		appConfig = Json.parse(Assets.getText('config.json'));
                 if(appConfig == null) {
                        appConfig = {
-                              appName: "Friday Night Funkin': Grafex Engine",
+                              appName: "Friday Night Funkin': Vs Shel",
                               appUpSound: "volume/vol_up2",
                               appDownSound: "volume/vol_down2"
                        } 
@@ -163,9 +163,9 @@ class Main extends Sprite
 
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#if DEVS_BUILD
-		trace('Dev Build');
+		trace('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dignissim urna vel interdum sollicitudin. Curabitur quis hendrerit ligula. Sed hendrerit justo at urna fermentum, ac venenatis arcu finibus. Ut et consequat tortor, a viverra quam. Cras nec risus semper, ultrices nibh ac, facilisis dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam feugiat tempus lectus euismod lacinia. Suspendisse efficitur, ante non tincidunt eleifend, ligula tellus convallis libero, eu sodales mauris neque et mauris. Sed eros sem, ultricies at rutrum nec, gravida vitae turpis. Aliquam et ipsum ipsum. Ut condimentum efficitur placerat. Nullam mattis sit amet diam at luctus. Sed tristique vehicula quam quis bibendum.');
 		#else
-		trace('Release Build');
+		trace('release bro');
 		#end
 
 		#if html5
@@ -267,7 +267,7 @@ class Main extends Sprite
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString().replace(" ", "_").replace(":", "-");
 
-		path = './crash/Grafex_$dateNow.txt';
+		path = './crash/ihatemylifebecauseigotcrashedimkillmyself_$dateNow.txt';
 	
 		for (stackItem in callStack)
 		{
@@ -280,9 +280,11 @@ class Main extends Sprite
 			}
 		}
 	
-		errMsg += "\nUncaught Error: "
+		errMsg += "\noh my fucking god you got crashed:"
+			//+= "\nUncaught Error: "
 			+ e.error
-			+ "\nPlease report this error to the pursnake in Discord\n";
+			+ "\nyour problems lmfaoo";
+			//+ "\nPlease report this error to the pursnake in Discord\n";
 			//+ "\nPlease report this error to #playtest-qa-testing.\n\n>Crash Handler written by: sqirra-rng";
 
 		if (!FileSystem.exists("./crash/"))

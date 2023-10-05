@@ -106,6 +106,11 @@ class CreditsState extends MusicBeatState
 			new CreditData('PurSnake', 'PurSnake', 'Main Programmer', 'https://twitter.com/PurSniki', '0xFF8C41B6'),
 			new CreditData('KerSive', 'KerSive', 'Funny Artist', 'https://twitter.com/KerSive0_0', '0xFFC2C04A')
 		];*/
+		creditsStuff.push(new CreditData('Vs Shel Team', false));
+		creditsStuff.push(new CreditData('Shel', 'shel', 'Director', 'https://www.youtube.com/@shelybnzboy339', '0xFF1457BC'));
+		creditsStuff.push(new CreditData('Mlaofmd', 'Mlaofmd', 'Director, Charter', 'https://www.youtube.com/channel/UCGy35rMSFC-_oboZYdlJwew', '0xFFEED0B3'));
+		creditsStuff.push(new CreditData('LuccaStealthX', 'Lucca', 'Co-Director, Artist, Musician, Animator', 'https://twitter.com/LuccaStealthX', '0xFF0072FF'));
+		creditsStuff.push(new CreditData('Foxer', 'Foxer', 'Coder, Charter', 'https://www.youtube.com/channel/UCXApT8F2YEmHr7k5EFjmHKA', '0xFFFFFFFF'));
 		creditsStuff.push(new CreditData('Grafex Engine', false));
 		creditsStuff.push(new CreditData('PurSnake', 'PurSnake', 'Main Programmer', 'https://twitter.com/PurSnake', '0xFF8C41B6'));
 		creditsStuff.push(new CreditData('KerSive', 'KerSive', 'Funny Artist', 'https://twitter.com/KerSive0_0', '0xFFC2C04A'));

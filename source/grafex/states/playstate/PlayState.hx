@@ -351,6 +351,10 @@ class PlayState extends MusicBeatState
 
     public var defaultCamZoom:Float = 1.05;
 
+    private var daTiming:String = '-early';
+    private var allSicks:Bool = true;
+    private var lateDamageEffect:String = '';
+
 	var allNotesMs:Float = 0;
 	var averageMs:Float = 0;
 
@@ -450,6 +454,7 @@ class PlayState extends MusicBeatState
 		rating.score = 50;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
+
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -1198,6 +1203,9 @@ class PlayState extends MusicBeatState
 
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
+
+		allSicks = true;
+		lateDamageEffect = '';
 
 		healthBarGroup = new FlxTypedGroup<Dynamic>();
 
@@ -4230,6 +4238,7 @@ class PlayState extends MusicBeatState
 
 	public var totalPlayed:Int = 0;
 	public var totalNotesHit:Float = 0.0;
+	public var currentTimingShown:FlxText = null;
 
 
 	private function cacheCombo()
@@ -4279,6 +4288,7 @@ class PlayState extends MusicBeatState
 
 	var rating:FlxSprite = new FlxSprite();
 	var score:Float = 350;
+	var daTiming:String = "";
 
         //tryna do MS based judgment due to popular demand
         var daRating:Rating = Conductor.judgeNote(note, noteDiff / playbackRate);
@@ -4289,6 +4299,32 @@ class PlayState extends MusicBeatState
         if(!note.ratingDisabled) daRating.increase();
         note.rating = daRating.name;
         score *= daRating.ratingMod;
+
+        if (daRating.name == 'sick') {
+			if (!cpuControlled) songScore += 350;
+		}
+		else if (daRating.name == 'good') {
+			if (!cpuControlled) songScore += 200;
+			allSicks = false;
+		}
+		else if (daRating.name == 'bad') {
+			if (!cpuControlled) songScore += 100;
+			allSicks = false;
+		}
+		else if (daRating.name == 'shit') {
+			if (!cpuControlled) songScore += 50;
+			allSicks = false;
+			if (ClientPrefs.lateDamage) {
+			lateDamageEffect = 'miss';
+			missedNote(true);
+			}
+		}
+
+		if (note.strumTime < Conductor.songPosition)
+			daTiming = "-late";
+		else
+			daTiming = "-early";
+
 
         if(daRating.noteSplash && !note.noteSplashDisabled) spawnNoteSplashOnNote(note);
 
@@ -4340,7 +4376,7 @@ class PlayState extends MusicBeatState
 	
 			switch(numSpriteType) {
 	
-				case 'default':     numScore.loadGraphic(Paths.image(ratingsSubPath + pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
+				case 'default':     numScore.loadGraphic(Paths.image('combo/' + ratingsSubPath + (allSicks == true ? 'golden/' : allSicks == false ? '' : "") + 'num' + Std.int(i) + pixelShitPart2));
 				case 'animated':    numScore.frames = Paths.getSparrowAtlas(ratingsSubPath + pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2);
 				                    numScore.animation.addByPrefix('num', 'num', 24, true);
 				                    numScore.animation.play('num', true);
@@ -4407,7 +4443,7 @@ class PlayState extends MusicBeatState
 
 		switch(ratingSpriteType) {
 
-			case 'default':     rating.loadGraphic(Paths.image(ratingsSubPath + pixelShitPart1 + daRating.image + pixelShitPart2));
+			case 'default':     rating.loadGraphic(Paths.image('judgements/' + ratingsSubPath + pixelShitPart1 + (allSicks == true ? 'sick-perfect' : allSicks == false ? daRating.image : "") + daTiming + pixelShitPart2));
             case 'animated':    rating.frames = Paths.getSparrowAtlas(ratingsSubPath + pixelShitPart1 + daRating.image + pixelShitPart2);
 			                    rating.animation.addByPrefix('rating', 'rating', 24, true);
 								rating.animation.play('rating', true);
@@ -4445,7 +4481,7 @@ class PlayState extends MusicBeatState
 			                    comboSpr.animation.addByPrefix('combo', 'combo', 24, true);
 								comboSpr.animation.play('combo', true);
 		}
-        //comboSpr.cameras = [camHUD];
+       	//comboSpr.cameras = [camHUD];
         comboSpr.screenCenter();
  	    comboSpr.x = coolText.x;
         comboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
@@ -4729,6 +4765,8 @@ class PlayState extends MusicBeatState
 				note.destroy();
 			}
 		});
+		if (!daNote.isSustainNote) missedNote(false);
+		else missedNote(false, true);
 		combo = 0;
 
 		health -= daNote.missHealth * healthLoss;
@@ -4748,6 +4786,8 @@ class PlayState extends MusicBeatState
 
 		totalPlayed++;
 		RecalculateRating(true);
+
+		allSicks = false;
 
 		popUpComboScore(true);
 
@@ -4781,6 +4821,7 @@ class PlayState extends MusicBeatState
         if (!boyfriend.stunned)
         {
             health -= 0.05 * healthLoss;
+            missedNote(false);
             if(instakillOnMiss)
             {
                 vocals.volume = 0;
@@ -4810,6 +4851,7 @@ class PlayState extends MusicBeatState
     
             totalPlayed++;
             RecalculateRating(true);
+
             healthBarShake(0.35);
             if(ClientPrefs.playMissSounds) FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.3, 0.4));
     
@@ -4821,6 +4863,37 @@ class PlayState extends MusicBeatState
         callOnHscript("noteMissPress", [direction]);
         stageBuild.callFunction('noteMissPress', [direction]);
     }
+
+    function missedNote(wasShit:Bool = false, ?longNote:Bool = false) {
+		health -= 0.05 * healthLoss;
+		if(instakillOnMiss)
+		{
+			vocals.volume = 0;
+			doDeathCheck(true);
+		}
+
+		if (combo > 5 && gf != null && gf.animOffsets.exists('sad'))
+		{
+			gf.playAnim('sad');
+		}
+		if (!wasShit) vocals.volume = 0;
+		if (!longNote) {
+		combo = 0;
+		if(!practiceMode) songScore -= 10;
+		if(!endingSong) {
+			songMisses++;
+		}
+		healthBarShake(0.45);
+		totalPlayed++;
+		RecalculateRating(true);
+
+		allSicks = false;
+
+		FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+		}
+		
+		callOnLuas('missedNote', []);
+	}
 
     private function opponentNoteHit(note:Note):Void
     {
@@ -5717,7 +5790,7 @@ class PlayState extends MusicBeatState
 		    isHealthCheckingEnabled = false;
 		    if(iconP1.spriteType != "animated" && iconP1.spriteType != "single" || iconP1.spriteType.startsWith('trio') ) iconP1.animation.curAnim.curFrame = 1;
 
-		    if(iconP2.spriteType == 'trioWIN' || iconP2.spriteType == 'trioWIND') iconP2.animation.curAnim.curFrame = 2;
+		    if(iconP2.spriteType == 'trio') iconP2.animation.curAnim.curFrame = 2;
 
 		    new FlxTimer().start(Conductor.crochet / 750 / playbackRate, function(tmr:FlxTimer)
 		    {
