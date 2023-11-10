@@ -1,0 +1,100 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "idle",
+			"indices": [],
+			"image": "",
+			"name": "Shel Nodes idle"
+		},
+		{
+			"offsets": [
+				-4,
+				1
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "singLEFT",
+			"indices": [],
+			"image": "",
+			"name": "Shel Nodes Left"
+		},
+		{
+			"offsets": [
+				5,
+				-1
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "singDOWN",
+			"indices": [],
+			"image": "",
+			"name": "Shel Nodes down"
+		},
+		{
+			"offsets": [
+				-4,
+				-4
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "singUP",
+			"indices": [],
+			"image": "",
+			"name": "Shel Nodes up"
+		},
+		{
+			"offsets": [
+				4,
+				1
+			],
+			"loop": false,
+			"fps": 14,
+			"anim": "singRIGHT",
+			"indices": [],
+			"image": "",
+			"name": "Shel Nodes right"
+		}
+	],
+	"sing_anims_prefix": "sing",
+	"no_antialiasing": false,
+	"healthicon_scale": 1,
+	"gameover_properties": [
+		"bf-dead",
+		"fnf_loss_sfx",
+		"gameOver",
+		"gameOverEnd"
+	],
+	"image": "characters/Shel_Nodes",
+	"position": [
+		-390,
+		-270
+	],
+	"healthicon_offsets": [
+		0,
+		10
+	],
+	"healthbar_colors2": [
+		20,
+		87,
+		188
+	],
+	"healthicon": "shel-n-mlao",
+	"flip_x": false,
+	"healthbar_colors": [
+		181,
+		149,
+		116
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 0.7
+}

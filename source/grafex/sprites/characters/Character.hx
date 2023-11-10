@@ -90,7 +90,7 @@ class Character extends FlxSprite
 	public var healthIcon:String = 'face';
 	public var healthIconType:String = 'duo';
 
-	public var healthIconTypes:Array<String> = ['solo', 'duo', 'trioWin', 'trioLose', 'quadro', 'custom'];
+	public var healthIconTypes:Array<String> = ['solo', 'duo', 'trio', 'trio', 'quadro', 'custom'];
 
 	public var animationsArray:Array<AnimArray> = [];
 

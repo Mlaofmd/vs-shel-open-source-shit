@@ -14,7 +14,7 @@ class ClientPrefs {
 	public static var noteSplashesScale:Float = 1;
 	public static var noteSplashesAlpha:Float = 0.6;
 	public static var lightCpuStrums:Bool = true;
-	public static var classicScoreTxt:Bool = true;
+	public static var classicScoreTxt:Bool = false;
     public static var playMissSounds:Bool = true;
 	public static var countDownPause:Bool = true;
     public static var hitSound:Bool = false;
@@ -47,7 +47,7 @@ class ClientPrefs {
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var imagesPersist:Bool = false;
-	public static var ghostTapping:Bool = false;
+	public static var ghostTapping:Bool = true;
 	public static var lateDamage:Bool = true;
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;

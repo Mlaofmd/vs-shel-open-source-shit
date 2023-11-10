@@ -158,7 +158,7 @@ class MainMenuState extends MusicBeatState
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Grafex Engine v" + EngineData.grafexEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		var versionModShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "FNF': Vs Shel v1", 12);
+		var versionModShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "FNF': Vs Shel DEMO BUILD", 12);
 		versionModShit.scrollFactor.set();
 		versionModShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);

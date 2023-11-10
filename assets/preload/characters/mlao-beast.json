@@ -1,0 +1,100 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "mlao idle",
+			"image": "",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				70,
+				-1
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "mlao left",
+			"image": "",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-21,
+				-12
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "mlao down",
+			"image": "",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				31,
+				36
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "mlao up",
+			"image": "",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "mlao right",
+			"image": "",
+			"indices": []
+		}
+	],
+	"sing_anims_prefix": "sing",
+	"no_antialiasing": false,
+	"healthicon_scale": 1,
+	"gameover_properties": [
+		"bf-dead",
+		"fnf_loss_sfx",
+		"gameOver",
+		"gameOverEnd"
+	],
+	"image": "characters/mlao_ASSETS",
+	"position": [
+		80,
+		30
+	],
+	"healthicon_offsets": [
+		0,
+		-10
+	],
+	"healthbar_colors2": [
+		181,
+		149,
+		116
+	],
+	"healthicon": "icon-mlao-beast",
+	"flip_x": false,
+	"healthbar_colors": [
+		181,
+		149,
+		116
+	],
+	"camera_position": [
+		-70,
+		-10
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

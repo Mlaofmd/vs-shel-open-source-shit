@@ -458,6 +458,8 @@ class FreeplayState extends MusicBeatState
 		            ChooseSound = new FlxSound().loadEmbedded(Paths.sound('confirmMenu'));
 		            ChooseSound.play();
 		            ChooseSound.looped = false;
+		            FlxG.camera.zoom += 0.030;
+		            camZoom = FlxTween.tween(FlxG.camera, {zoom: 1.030}, 0.15);
             
 		            //Utils.checkExistingChart(songLowercase, poop);
 		            PlayState.SONG = Song.loadFromJson(songString, songLowercase);
@@ -497,7 +499,7 @@ class FreeplayState extends MusicBeatState
 				trace(songString + '.json does not exist!');
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				FlxG.camera.shake(0.04, 0.04);
-				var funnyText = new FlxText(12, FlxG.height - 24, 0, "Invalid JSON!");
+				var funnyText = new FlxText(12, FlxG.height - 24, 0, "bruh invalid json im leaving");
 				funnyText.scrollFactor.set();
 				funnyText.screenCenter();
 				funnyText.cameras = [camINTERFACE];
@@ -630,10 +632,25 @@ class FreeplayState extends MusicBeatState
 		    for (i in 0...iconArray.length)
 		    {
 		    	iconArray[i].alpha = 0.6;
-				iconArray[i].animation.curAnim.curFrame = 0;
+				if(iconArray[i].spriteType == "animated")
+					iconArray[i].animation.play('loose', true);	
+				else
+					iconArray[i].animation.curAnim.curFrame = 0;
 		    }
     
 		    iconArray[curSelected].alpha = 1;
+		    	if(iconArray[curSelected].animation.frames == 3)
+				{
+					iconArray[curSelected].getCharacter().startsWith('gf')
+					? iconArray[curSelected].animation.curAnim.curFrame = 1
+					: iconArray[curSelected].animation.curAnim.curFrame = 2;
+				}
+				if(iconArray[curSelected].spriteType == "animated")
+				{
+					iconArray[curSelected].getCharacter().startsWith('mlao-beast')
+					? iconArray[curSelected].animation.play('win', true)
+					: iconArray[curSelected].animation.play('loose', true);
+				}
     
 		    for (item in grpSongs.members)
 		    {

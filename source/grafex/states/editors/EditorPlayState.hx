@@ -57,6 +57,7 @@ class EditorPlayState extends MusicBeatState
 	var generatedMusic:Bool = false;
 	var vocals:FlxSound;
 	var vocals2:FlxSound;
+	var vocals3:FlxSound;
 
 	var startOffset:Float = 0;
 	var startPos:Float = 0;
@@ -123,9 +124,11 @@ class EditorPlayState extends MusicBeatState
 		if (PlayState.SONG.needsVoices) {
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, PlayState.SONG.postfix));
 			vocals2 = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, PlayState.SONG.postfix + '-Second'));
+			vocals3 = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, PlayState.SONG.postfix + '-Third'));
 		} else {
 			vocals = new FlxSound();
 			vocals2 = new FlxSound();
+			vocals3 = new FlxSound();
 		}
 
 		generateSong(PlayState.SONG.song);

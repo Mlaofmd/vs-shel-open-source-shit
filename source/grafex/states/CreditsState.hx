@@ -51,7 +51,7 @@ class CreditsState extends MusicBeatState
 	{
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("creduto bruh", null);
 		#end
 
 		persistentUpdate = true;
@@ -108,9 +108,16 @@ class CreditsState extends MusicBeatState
 		];*/
 		creditsStuff.push(new CreditData('Vs Shel Team', false));
 		creditsStuff.push(new CreditData('Shel', 'shel', 'Director', 'https://www.youtube.com/@shelybnzboy339', '0xFF1457BC'));
-		creditsStuff.push(new CreditData('Mlaofmd', 'Mlaofmd', 'Director, Charter', 'https://www.youtube.com/channel/UCGy35rMSFC-_oboZYdlJwew', '0xFFEED0B3'));
-		creditsStuff.push(new CreditData('LuccaStealthX', 'Lucca', 'Co-Director, Artist, Musician, Animator', 'https://twitter.com/LuccaStealthX', '0xFF0072FF'));
+		creditsStuff.push(new CreditData('Mlaofmd', 'Mlaofmd', 'Director, Charter, Animator', 'https://www.youtube.com/channel/UCGy35rMSFC-_oboZYdlJwew', '0xFFEED0B3'));
+		creditsStuff.push(new CreditData('LuccaStealthX', 'Lucca', 'Co-Director, Artist, Animator', 'https://twitter.com/LuccaStealthX', '0xFF0072FF'));
 		creditsStuff.push(new CreditData('Foxer', 'Foxer', 'Coder, Charter', 'https://www.youtube.com/channel/UCXApT8F2YEmHr7k5EFjmHKA', '0xFFFFFFFF'));
+		creditsStuff.push(new CreditData('prepodd131', 'prepodd', 'Concept Artist', '', '0xFF2BD2FF'));
+		creditsStuff.push(new CreditData('Max3000', 'm3000', 'Musician', '', '0xFFFFCC33'));
+		creditsStuff.push(new CreditData('FalcinoBeats', 'falcino', 'Musician', '', '0xFFC48E70'));
+		creditsStuff.push(new CreditData('Pecha', 'pecha', 'Logo Artist', '', '0xFFC48E70'));
+		creditsStuff.push(new CreditData('arko', 'arko', 'Artist', '', '0xFFC48E70'));
+		creditsStuff.push(new CreditData('SimonJeez', 'simon', 'Charter', '', '0xFF990033'));
+		creditsStuff.push(new CreditData('KrashTheBot', 'krash', 'Charter', '', '0xFFFF6600'));
 		creditsStuff.push(new CreditData('Grafex Engine', false));
 		creditsStuff.push(new CreditData('PurSnake', 'PurSnake', 'Main Programmer', 'https://twitter.com/PurSnake', '0xFF8C41B6'));
 		creditsStuff.push(new CreditData('KerSive', 'KerSive', 'Funny Artist', 'https://twitter.com/KerSive0_0', '0xFFC2C04A'));
@@ -258,6 +265,7 @@ class CreditsState extends MusicBeatState
 		} while(unselectableCheck(curSelected));
 
 		var newColor:Int =  getCurrentBGColor();
+		trace('wow new color fr??????: $newColor');
 		if(newColor != intendedColor) {
 			if(colorTween != null) {
 				colorTween.cancel();

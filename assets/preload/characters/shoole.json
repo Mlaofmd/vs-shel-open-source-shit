@@ -1,0 +1,100 @@
+{
+	"animations": [
+		{
+			"image": "",
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "shoole idle"
+		},
+		{
+			"image": "",
+			"offsets": [
+				435,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "shoole left"
+		},
+		{
+			"image": "",
+			"offsets": [
+				-77,
+				10
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "shoole down"
+		},
+		{
+			"image": "",
+			"offsets": [
+				-161,
+				630
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP",
+			"loop": false,
+			"name": "shoole up"
+		},
+		{
+			"image": "",
+			"offsets": [
+				-241,
+				-9
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "shoole right"
+		}
+	],
+	"sing_anims_prefix": "sing",
+	"no_antialiasing": false,
+	"healthicon_scale": 1,
+	"gameover_properties": [
+		"bf-dead",
+		"fnf_loss_sfx",
+		"gameOver",
+		"gameOverEnd"
+	],
+	"image": "characters/shoole_ASSETS",
+	"position": [
+		-240,
+		170
+	],
+	"healthicon_offsets": [
+		0,
+		0
+	],
+	"healthbar_colors2": [
+		0,
+		38,
+		255
+	],
+	"healthicon": "pecheneg",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		38,
+		255
+	],
+	"camera_position": [
+		120,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

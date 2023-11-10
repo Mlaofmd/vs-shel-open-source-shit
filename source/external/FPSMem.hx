@@ -108,7 +108,7 @@ class FPSMem extends TextField
 				currentMem < 0 ? text += "Memory: Leaking " + Math.abs(currentMem) + " MB\n" : text += "Memory: " + currentMem + " MB\n";
 			
 			text += 'Grafex Engine ${grafex.data.EngineData.grafexEngineVersion}\n';
-			text += 'FNF: Vs Shel v1';
+			text += 'FNF: Vs Shel V1 DEV BUILD';
 			shadow.text = text;
 		}
 		cacheCount = currentCount;

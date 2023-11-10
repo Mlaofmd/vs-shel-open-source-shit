@@ -51,7 +51,7 @@ class PauseSubState extends MusicBeatSubstate
 	var composerInfo:FlxText = new FlxText(20, 15 + 32, 0, "", 27);
 	var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
 	var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
-	var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
+	var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "bro, do you seriously think that you will pass this music like that, then you are deeply mistaken", 32);
 
 	public var countdownReady:FlxSprite;
 	public var countdownSet:FlxSprite;
@@ -354,6 +354,9 @@ class PauseSubState extends MusicBeatSubstate
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
+					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
+					PlayState.instance.scoreTxt.visible = (!ClientPrefs.hideHud && !PlayState.instance.cpuControlled);
+					PlayState.instance.botplayTxt.alpha = 1;
 					PlayState.instance.botplaySine = 0;
 				case "Exit to menu":
 					trace('Exited Song');

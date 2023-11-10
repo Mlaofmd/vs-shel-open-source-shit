@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="icon-mlao-beast.png">
+	<!-- Created with Adobe Animate version 22.0.8.217 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="loose0000" x="10" y="10" width="143" height="127"/>
+	<SubTexture name="loose0001" x="163" y="10" width="143" height="127"/>
+	<SubTexture name="loose0002" x="316" y="10" width="143" height="127"/>
+	<SubTexture name="loose0003" x="469" y="10" width="143" height="127"/>
+	<SubTexture name="loose0004" x="622" y="10" width="143" height="127"/>
+	<SubTexture name="loose0005" x="775" y="10" width="143" height="127"/>
+	<SubTexture name="loose0006" x="10" y="147" width="143" height="127"/>
+	<SubTexture name="normal0000" x="163" y="147" width="128" height="101"/>
+	<SubTexture name="win0000" x="301" y="147" width="129" height="106"/>
+	<SubTexture name="win0001" x="440" y="147" width="129" height="106"/>
+	<SubTexture name="win0002" x="579" y="147" width="129" height="106"/>
+	<SubTexture name="win0003" x="718" y="147" width="129" height="106"/>
+	<SubTexture name="win0004" x="857" y="147" width="129" height="106"/>
+	<SubTexture name="win0005" x="10" y="284" width="129" height="106"/>
+	<SubTexture name="win0006" x="149" y="284" width="129" height="106"/>
+</TextureAtlas>

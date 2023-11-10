@@ -88,7 +88,9 @@ class ChartingState extends MusicBeatState
 		'Hey!',
 		'Hurt Note',
 		'GF Sing',
-		'No Animation'
+		'No Animation',
+		'Second Char Sing',
+		'Both Chars Sing'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();
@@ -186,6 +188,7 @@ class ChartingState extends MusicBeatState
 
 	var vocals:FlxSound = null;
 	var vocals2:FlxSound = null;
+	var vocals3:FlxSound = null;
 
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
@@ -228,6 +231,7 @@ class ChartingState extends MusicBeatState
 	var waveformInstSprite:FlxSprite;
 	var waveformBoyfriendSprite:FlxSprite;
 	var waveformDadSprite:FlxSprite;
+	var waveformMomSprite:FlxSprite;
 	var waveformVoicesSprite:FlxSprite;
 	var gridLayer:FlxTypedGroup<FlxSprite>;
 
@@ -306,6 +310,8 @@ class ChartingState extends MusicBeatState
 		add(waveformDadSprite);
 		waveformVoicesSprite = new FlxSprite(GRID_SIZE, 0).makeGraphic(1, 1, 0x00FFFFFF);
 		add(waveformVoicesSprite);
+		waveformMomSprite = new FlxSprite(GRID_SIZE, 0).makeGraphic(1, 1, 0x00FFFFFF);
+		add(waveformMomSprite);
 
 		var eventIcon:FlxSprite = new FlxSprite(-GRID_SIZE - 5, -90).loadGraphic(Paths.image('eventArrow'));
 		leftIcon = new HealthIcon('bf', 0, 0, 0.45);
@@ -1346,10 +1352,12 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 	var waveformUseInstrumental:FlxUICheckBox;
 	var waveformUseVoices:FlxUICheckBox;
 	var waveformUseVoices2:FlxUICheckBox;
+	var waveformUseVoices3:FlxUICheckBox;
 	#end
 	var instVolume:FlxUINumericStepper;
 	var voicesVolume:FlxUINumericStepper;
 	var voicesVolume2:FlxUINumericStepper;
+	var voicesVolume3:FlxUINumericStepper;
 
 	var playbackRate_Slider:FlxUISlider;
 	var PlaybackRate(default, set):Float = 1;
@@ -1358,6 +1366,7 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		PlaybackRate = FlxMath.roundDecimal(value,2);
 		if(vocals != null) vocals.pitch = PlaybackRate;
 		if(vocals2 != null) vocals2.pitch = PlaybackRate;
+		if(vocals3 != null) vocals3.pitch = PlaybackRate;
 		Conductor.safeZoneOffset = (ClientPrefs.safeFrames / 60) * 1000 * value;
 		FlxG.sound.music.pitch = PlaybackRate;
 		return value;
@@ -1372,6 +1381,7 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
         if (FlxG.save.data.chart_waveformInst == null) FlxG.save.data.chart_waveformInst = false;
 		if (FlxG.save.data.chart_waveformVoices == null) FlxG.save.data.chart_waveformVoices = false;
 		if (FlxG.save.data.chart_waveformVoices2 == null) FlxG.save.data.chart_waveformVoices2 = false;
+		if (FlxG.save.data.chart_waveformVoices3 == null) FlxG.save.data.chart_waveformVoices3 = false;
 
 		waveformUseInstrumental = new FlxUICheckBox(10, 80, null, null, "Waveform for Instrumental", 100);
 		waveformUseInstrumental.checked = FlxG.save.data.chart_waveformInst;
@@ -1414,6 +1424,22 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 			// FlxG.save.data.chart_waveformVoices = false;
 
 			FlxG.save.data.chart_waveformVoices2 = waveformUseVoices2.checked;
+			updateWaveform();
+		};
+
+		waveformUseVoices3 = new FlxUICheckBox(waveformUseVoices2.x + 100, waveformUseVoices2.y, null, null, "Waveform for Voices3", 100);
+		waveformUseVoices3.checked = FlxG.save.data.chart_waveformVoices3;
+		waveformUseVoices3.callback = function()
+		{
+			// waveformUseInstrumental.checked = false;
+			// waveformUseVoices.checked = false;
+
+			// FlxG.save.data.chart_waveformInst = false;
+
+			// FlxG.save.data.chart_waveformVoices = waveformUseVoices.checked;
+			// FlxG.save.data.chart_waveformVoices = false;
+
+			FlxG.save.data.chart_waveformVoices3 = waveformUseVoices3.checked;
 			updateWaveform();
 		};
 		#end
@@ -1465,6 +1491,20 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 					vol = 0;
 
 				vocals2.volume = vol;
+			}
+		};
+
+		var check_mute_vocals3 = new FlxUICheckBox(check_mute_vocals2.x + 100, check_mute_inst.y, null, null, "Mute Vocals3 (in editor)", 70);
+		check_mute_vocals3.checked = false;
+		check_mute_vocals3.callback = function()
+		{
+			if(vocals3 != null) {
+				var vol:Float = 1;
+
+				if (check_mute_vocals3.checked)
+					vol = 0;
+
+				vocals3.volume = vol;
 			}
 		};
 
@@ -1520,6 +1560,11 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		voicesVolume2.name = 'voices2_volume';
 		blockPressWhileTypingOnStepper.push(voicesVolume2);
 
+		voicesVolume3 = new FlxUINumericStepper(voicesVolume2.x + 100, voicesVolume2.y, 0.1, 1, 0, 1, 1);
+		voicesVolume3.value = vocals3.volume;
+		voicesVolume3.name = 'voices3_volume';
+		blockPressWhileTypingOnStepper.push(voicesVolume3);
+
 		var shiftTrack = new FlxText(7, 135, 'Shift Chart Position');
 
 		var shiftNoteDialLabel = new FlxText(10, 150, 'Shift Note FWD by (Section)');
@@ -1551,6 +1596,7 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		tab_group_chart.add(new FlxText(instVolume.x, instVolume.y - 15, 0, 'Inst Volume'));
 		tab_group_chart.add(new FlxText(voicesVolume.x, voicesVolume.y - 15, 0, 'Voices Volume'));
 		tab_group_chart.add(new FlxText(voicesVolume2.x, voicesVolume2.y - 15, 0, 'Voices2 Volume'));
+		tab_group_chart.add(new FlxText(voicesVolume3.x, voicesVolume3.y - 15, 0, 'Voices3 Volume'));
 		tab_group_chart.add(metronome);
 		tab_group_chart.add(disableAutoScrolling);
 		tab_group_chart.add(metronomeStepper);
@@ -1558,6 +1604,7 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		#if desktop
 		tab_group_chart.add(waveformUseVoices);
 		tab_group_chart.add(waveformUseVoices2);
+		tab_group_chart.add(waveformUseVoices3);
 		tab_group_chart.add(waveformUseInstrumental);
 		#end
 		tab_group_chart.add(playbackRate_Slider);
@@ -1575,7 +1622,8 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
         tab_group_chart.add(shiftNoteButton);
 		tab_group_chart.add(shiftTrack);
 		tab_group_chart.add(check_mute_vocals);
-		tab_group_chart.add(check_mute_vocals2);	
+		tab_group_chart.add(check_mute_vocals2);
+		tab_group_chart.add(check_mute_vocals3);	
 		tab_group_chart.add(check_vortex);
 		tab_group_chart.add(playSoundBf);
 		tab_group_chart.add(playSoundDad);
@@ -1591,9 +1639,11 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 
 		var file:Dynamic = Paths.voices(currentSongName, _song.postfix);
 		var file2:Dynamic = Paths.voices(currentSongName, _song.postfix+ '-Second');
+		var file3:Dynamic = Paths.voices(currentSongName, _song.postfix+ '-Third');
 
 		vocals = new FlxSound();
 		vocals2 = new FlxSound();
+		vocals3 = new FlxSound();
 
 		if (Std.isOfType(file, Sound) || OpenFlAssets.exists(file)) {
 			vocals.loadEmbedded(file);
@@ -1604,6 +1654,12 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 			vocals2.loadEmbedded(file2);
 			FlxG.sound.list.add(vocals2);
 		}
+
+		if (Std.isOfType(file3, Sound) || OpenFlAssets.exists(file3)) {
+			vocals3.loadEmbedded(file3);
+			FlxG.sound.list.add(vocals3);
+		}
+
 
 		generateSong();
 		FlxG.sound.music.pause();
@@ -1641,12 +1697,17 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				vocals2.pause();
 				vocals2.time = 0;
 			}
+			if(vocals3 != null) {
+				vocals3.pause();
+				vocals3.time = 0;
+			}
 			changeSection();
 			curSec = 0;
 			updateGrid();
 			updateSectionUI();
 			vocals.play();
 			vocals2.play();
+			vocals3.play();
 		};
 	}
 
@@ -1737,6 +1798,10 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 			else if (wname == 'voices2_volume')
 			{
 				vocals2.volume = nums.value;
+			}
+			else if (wname == 'voices3_volume')
+			{
+				vocals3.volume = nums.value;
 			}
 		}
 		else if(id == FlxUIInputText.CHANGE_EVENT && (sender is FlxUIInputText)) {
@@ -1933,6 +1998,7 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				FlxG.sound.music.pause();
 				if(vocals != null) vocals.pause();
 				if(vocals2 != null) vocals2.pause();
+				if(vocals3 != null) vocals3.pause();
 
 				autosaveSong();
 				LoadingState.loadAndSwitchState(new EditorPlayState(sectionStartTime()));
@@ -1955,6 +2021,8 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				if(vocals != null) vocals.stop();
 
 				if(vocals2 != null) vocals2.stop();
+
+				if(vocals3 != null) vocals3.stop();
 
 				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 				StageData.loadDirectory(_song);
@@ -2020,6 +2088,7 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 					FlxG.sound.music.pause();
 					if(vocals != null) vocals.pause();
 					if(vocals2 != null) vocals2.pause();
+					if(vocals3 != null) vocals3.pause();
 
 					lilBf.animation.play("idle");
 					lilOpp.animation.play("idle");
@@ -2037,6 +2106,12 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 						vocals2.pause();
 						vocals2.time = FlxG.sound.music.time;
 						vocals2.play();
+					}
+					if(vocals3 != null) {
+						vocals3.play();
+						vocals3.pause();
+						vocals3.time = FlxG.sound.music.time;
+						vocals3.play();
 					}
 					FlxG.sound.music.play();
 
@@ -2064,6 +2139,10 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				if(vocals2 != null) {
 					vocals2.pause();
 					vocals2.time = FlxG.sound.music.time;
+				}
+				if(vocals3 != null) {
+					vocals3.pause();
+					vocals3.time = FlxG.sound.music.time;
 				}
 
 				lilBf.animation.play("idle");
@@ -2101,6 +2180,10 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				if(vocals2 != null) {
 					vocals2.pause();
 					vocals2.time = FlxG.sound.music.time;
+				}
+				if(vocals3 != null) {
+					vocals3.pause();
+					vocals3.time = FlxG.sound.music.time;
 				}
 			}
 			if(!vortex) {
@@ -2195,6 +2278,10 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				if(vocals2 != null) {
 					vocals2.pause();
 					vocals2.time = FlxG.sound.music.time;
+				}
+				if(vocals3 != null) {
+					vocals3.pause();
+					vocals3.time = FlxG.sound.music.time;
 				}
 				
 				var dastrum = 0;
@@ -2345,8 +2432,6 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 							lilOpp.animation.play("" + (note.noteData % 4), true);
 							if (note.editorBFNote)
 								lilBf.animation.play("" + (note.noteData % 4), true);
-							else
-								lilOpp.animation.play("" + (note.noteData % 4), true);
 						}
 						/*else
 						{
@@ -2492,7 +2577,7 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		if(waveformPrinted) {
 			var width:Int = Std.int(GRID_SIZE * 8);
 			var height:Int = Std.int(gridBG.height);
-			for (obj in [waveformInstSprite, waveformBoyfriendSprite, waveformDadSprite, waveformVoicesSprite]){
+			for (obj in [waveformInstSprite, waveformBoyfriendSprite, waveformDadSprite, waveformMomSprite, waveformVoicesSprite]){
 				if(lastWaveformHeight != height && obj.pixels != null){
 					obj.pixels.image.data = null;
 					obj.pixels.dispose();
@@ -2506,7 +2591,7 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		}
 		waveformPrinted = false;
 
-		if ((waveformUseInstrumental == null || !waveformUseInstrumental.checked) && (waveformUseVoices == null || !waveformUseVoices.checked) && (waveformUseVoices2 == null || !waveformUseVoices2.checked))
+		if ((waveformUseInstrumental == null || !waveformUseInstrumental.checked) && (waveformUseVoices == null || !waveformUseVoices.checked) && (waveformUseVoices2 == null || !waveformUseVoices2.checked) && (waveformUseVoices3 == null || !waveformUseVoices3.checked))
 		{
 			// trace('Epic fail on the waveform lol');
 			return;
@@ -2577,10 +2662,14 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 		@:privateAccess {
 			if (FlxG.save.data.chart_waveformVoices && vocals._sound != null && vocals._sound.length > 0)
 				wavsUsers.push(vocals2._sound != null && vocals2._sound.length > 0 ? 'dad' : 'voices');
+				//wavsUsers.push(vocals3._sound != null && vocals3._sound.length > 0 ? 'dad' : 'voices');
 			// trace(vocals._sound.length, vocals2._sound.length);
 		}
 		if (FlxG.save.data.chart_waveformVoices2 && wavsUsers[wavsUsers.length - 1] == 'dad')
 			wavsUsers.push('bf');
+			wavsUsers.push('mom');
+		/*if (FlxG.save.data.chart_waveformVoices3 && wavsUsers[wavsUsers.length - 1] == 'dad')
+			wavsUsers.push('bf');*/
 
 		for (typeOfSong in wavsUsers){
 			var wavData:Array<Array<Array<Float>>> = [[[0], [0]], [[0], [0]]];
@@ -2620,6 +2709,12 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 					var preCharacter = _song.notes[curSec].gfSection && _song.notes[curSec].mustHitSection ? gfData : dadData;
 					colocSwag = FlxColor.fromRGB(preCharacter.healthbar_colors[0], preCharacter.healthbar_colors[1], preCharacter.healthbar_colors[2]);
 					sound = vocals2;
+					size /= 1.75;
+				case 'mom':
+					diraction = _song.notes[curSec].mustHitSection ? 1 : -1;
+					var preCharacter = _song.notes[curSec].gfSection && _song.notes[curSec].mustHitSection ? gfData : dadData;
+					colocSwag = 0x8800014a;
+					sound = vocals3;
 					size /= 1.75;
 				default:
 					waveformPixels = waveformInstSprite.pixels;
@@ -2668,6 +2763,8 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 					waveformBoyfriendSprite.pixels = waveformPixels;
 				case 'dad':
 					waveformDadSprite.pixels = waveformPixels;
+				case 'mom':
+					waveformMomSprite.pixels = waveformPixels;
 				case 'voices':
 					waveformVoicesSprite.pixels = waveformPixels;
 				default:
@@ -2847,6 +2944,10 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 			vocals2.pause();
 			vocals2.time = FlxG.sound.music.time;
 		}
+		if(vocals3 != null) {
+			vocals3.pause();
+			vocals3.time = FlxG.sound.music.time;
+		}
 
 		lilBf.animation.play("idle");
 		lilOpp.animation.play("idle");
@@ -2875,6 +2976,10 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				if(vocals2 != null) {
 					vocals2.pause();
 					vocals2.time = FlxG.sound.music.time;
+				}
+				if(vocals3 != null) {
+					vocals3.pause();
+					vocals3.time = FlxG.sound.music.time;
 				}
 
 				lilBf.animation.play("idle");

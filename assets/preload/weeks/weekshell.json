@@ -1,0 +1,41 @@
+{
+	"storyName": "Shel cool boy",
+	"difficulties": "Normal",
+	"hideFreeplay": false,
+	"weekBackground": "sunset",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"hideStoryMode": false,
+	"songs": [
+		[
+			"Slight Song",
+			"shel",
+			[
+				6,
+				93,
+				173
+			]
+		],
+		[
+			"Highlander",
+			"mlao",
+			[
+				181,
+				149,
+				116
+			]
+		]
+	],
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"hiddenUntilUnlocked": false,
+	"weekName": "Shel Week"
+}
