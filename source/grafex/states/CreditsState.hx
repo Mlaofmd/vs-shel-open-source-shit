@@ -62,7 +62,7 @@ class CreditsState extends MusicBeatState
 		if(FlxG.sound.music != null)
 			if (!FlxG.sound.music.playing)
 			{	
-				FlxG.sound.playMusic(Paths.music('creditsTheme'), 0.7);
+				FlxG.sound.playMusic(Paths.music('creditsTheme'), 0.7); //test
         		FlxG.sound.music.time = 9400;
 				TitleState.titleJSON = TitleState.getTitleData();
 				Conductor.changeBPM(TitleState.titleJSON.bpm);
