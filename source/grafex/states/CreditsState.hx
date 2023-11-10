@@ -62,7 +62,7 @@ class CreditsState extends MusicBeatState
 		if(FlxG.sound.music != null)
 			if (!FlxG.sound.music.playing)
 			{	
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0.7);
+				FlxG.sound.playMusic(Paths.music('creditsTheme'), 0.7);
         		FlxG.sound.music.time = 9400;
 				TitleState.titleJSON = TitleState.getTitleData();
 				Conductor.changeBPM(TitleState.titleJSON.bpm);
@@ -110,10 +110,12 @@ class CreditsState extends MusicBeatState
 		creditsStuff.push(new CreditData('Shel', 'shel', 'Director', 'https://www.youtube.com/@shelybnzboy339', '0xFF1457BC'));
 		creditsStuff.push(new CreditData('Mlaofmd', 'Mlaofmd', 'Director, Charter, Animator', 'https://www.youtube.com/channel/UCGy35rMSFC-_oboZYdlJwew', '0xFFEED0B3'));
 		creditsStuff.push(new CreditData('LuccaStealthX', 'Lucca', 'Co-Director, Artist, Animator', 'https://twitter.com/LuccaStealthX', '0xFF0072FF'));
-		creditsStuff.push(new CreditData('Foxer', 'Foxer', 'Coder, Charter', 'https://www.youtube.com/channel/UCXApT8F2YEmHr7k5EFjmHKA', '0xFFFFFFFF'));
+		creditsStuff.push(new CreditData('FalcinoBeats', 'falcino', 'Co-Director, Musician', '', '0xFFC48E70'));
+		creditsStuff.push(new CreditData('504brandon', '504', 'Coder', '', '0xFFFF6600'));
+		creditsStuff.push(new CreditData('Tusk4Act', 'tusk', 'Coder', '', '0xFF292929'));
 		creditsStuff.push(new CreditData('prepodd131', 'prepodd', 'Concept Artist', '', '0xFF2BD2FF'));
 		creditsStuff.push(new CreditData('Max3000', 'm3000', 'Musician', '', '0xFFFFCC33'));
-		creditsStuff.push(new CreditData('FalcinoBeats', 'falcino', 'Musician', '', '0xFFC48E70'));
+		creditsStuff.push(new CreditData('kli2020', 'kli', 'Musician', '', '0xFF9c40ff'));
 		creditsStuff.push(new CreditData('Pecha', 'pecha', 'Logo Artist', '', '0xFFC48E70'));
 		creditsStuff.push(new CreditData('arko', 'arko', 'Artist', '', '0xFFC48E70'));
 		creditsStuff.push(new CreditData('SimonJeez', 'simon', 'Charter', '', '0xFF990033'));
