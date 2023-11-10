@@ -1,3 +1,5 @@
+/* hello guys!!!!! welcome to vs shel playstate source code, you bastard lmao*/
+
 package grafex.states.playstate;
 
 import grafex.system.loader.GrfxStage;
