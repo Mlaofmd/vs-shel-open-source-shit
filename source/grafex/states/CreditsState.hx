@@ -59,14 +59,15 @@ class CreditsState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		if(FlxG.sound.music != null)
+		/*if(FlxG.sound.music != null)
 			if (!FlxG.sound.music.playing)
 			{	
 				FlxG.sound.playMusic(Paths.music('creditsTheme'), 0.7);
         		FlxG.sound.music.time = 9400;
 				TitleState.titleJSON = TitleState.getTitleData();
 				Conductor.changeBPM(TitleState.titleJSON.bpm);
-			}
+			}*/
+		FlxG.sound.playMusic(Paths.music('creditsTheme'), 1, true);
 
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
