@@ -2721,6 +2721,12 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 					sound = FlxG.sound.music;
 			}
 			
+			if (sound._sound != null && sound._sound.__buffer != null){
+				var bytes:Bytes = sound._sound.__buffer.data.toBytes();
+
+				wavData = waveformData(sound._sound.__buffer, bytes, st, et, 1, wavData, Std.int(gridBG.height));
+			}
+			
 			var leftLength:Int = (
 				wavData[0][0].length > wavData[0][1].length ? wavData[0][0].length : wavData[0][1].length
 			);
