@@ -1,6 +1,7 @@
 package grafex.states;
 
 
+import lime.graphics.Image;
 import grafex.data.EngineData;
 
 import grafex.system.statesystem.MusicBeatState;
@@ -104,6 +105,10 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		var icons = ["OG", "KerSive", "PurSnake"];
+
+		FlxG.game.stage.window.setIcon(Image.fromFile("assets/images/gameIcons" + FlxG.random.getObject(icons) + ".png"));
+
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
