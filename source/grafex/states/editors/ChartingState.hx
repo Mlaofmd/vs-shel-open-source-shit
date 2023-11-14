@@ -42,7 +42,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
-import flixel.system.FlxSound;
+
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -2719,12 +2719,6 @@ var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.current
 				default:
 					waveformPixels = waveformInstSprite.pixels;
 					sound = FlxG.sound.music;
-			}
-
-			if (sound._sound != null && sound._sound.__buffer != null){
-				var bytes:Bytes = sound._sound.__buffer.data.toBytes();
-
-				wavData = waveformData(sound._sound.__buffer, bytes, st, et, 1, wavData, Std.int(gridBG.height));
 			}
 			
 			var leftLength:Int = (

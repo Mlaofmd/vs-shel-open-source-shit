@@ -34,6 +34,7 @@ using StringTools;
 class CreditsState extends MusicBeatState
 {
 	var curSelected:Int = -1;
+	var curSelectedAlt:Int = 1;
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
@@ -102,18 +103,13 @@ class CreditsState extends MusicBeatState
 		}
 		#end
 
-		/*creditsStuff = [
-			new CreditData('Grafex Engine', false),
-			new CreditData('PurSnake', 'PurSnake', 'Main Programmer', 'https://twitter.com/PurSniki', '0xFF8C41B6'),
-			new CreditData('KerSive', 'KerSive', 'Funny Artist', 'https://twitter.com/KerSive0_0', '0xFFC2C04A')
-		];*/
 		creditsStuff.push(new CreditData('Vs Shel Team', false));
 		creditsStuff.push(new CreditData('Shel', 'shel', 'Director', 'https://www.youtube.com/@shelybnzboy339', '0xFF1457BC'));
 		creditsStuff.push(new CreditData('Mlaofmd', 'Mlaofmd', 'Director, Charter, Animator', 'https://www.youtube.com/channel/UCGy35rMSFC-_oboZYdlJwew', '0xFFEED0B3'));
 		creditsStuff.push(new CreditData('LuccaStealthX', 'Lucca', 'Co-Director, Artist, Animator', 'https://twitter.com/LuccaStealthX', '0xFF0072FF'));
 		creditsStuff.push(new CreditData('FalcinoBeats', 'falcino', 'Co-Director, Musician', '', '0xFFC48E70'));
-		creditsStuff.push(new CreditData('504brandon', '504', 'Coder', '', '0xFFFF6600'));
-		creditsStuff.push(new CreditData('Tusk4Act', 'tusk', 'Coder', '', '0xFF292929'));
+		//creditsStuff.push(new CreditData('504brandon&Tusk4Act', '504&tusk', 'Coder Lovers', 'https://www.youtube.com/watch?v=xlyLoxMM4s4&t=201s', '0xFFFF6600'));
+		creditsStuff.push(new CreditData("Fleety T. Storm n' 504brandon", 'fleet&504', 'Coder Lovers', 'https://www.youtube.com/watch?v=xlyLoxMM4s4&t=201s', '0xFF292929'));
 		creditsStuff.push(new CreditData('prepodd131', 'prepodd', 'Concept Artist', '', '0xFF2BD2FF'));
 		creditsStuff.push(new CreditData('Max3000', 'm3000', 'Musician', '', '0xFFFFCC33'));
 		creditsStuff.push(new CreditData('kli2020', 'kli', 'Musician', '', '0xFF9c40ff'));
@@ -149,7 +145,23 @@ class CreditsState extends MusicBeatState
 					var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i].icon);
 					icon.xAdd = optionText.width + 10;
 					icon.sprTracker = optionText;
-					
+					if (creditsStuff[i].icon.split("&").length > 1){
+						var sillis = creditsStuff[i].icon.split("&");
+
+						icon.loadGraphic(Paths.image('credits/' + sillis[0]));
+
+						sillis.remove(creditsStuff[i].icon.split("&")[0]);
+
+						for (name in sillis){
+							if (name != null && name != ""){
+								var otherIcon:AttachedSprite = new AttachedSprite('credits/$name');
+								otherIcon.xAdd = icon.width - 43;
+								otherIcon.flipX = true;
+								otherIcon.sprTracker = icon;
+								add(otherIcon);
+							}
+						}
+					}
 					iconArray.push(icon);
 					add(icon);
 				} 
@@ -269,7 +281,6 @@ class CreditsState extends MusicBeatState
 		} while(unselectableCheck(curSelected));
 
 		var newColor:Int =  getCurrentBGColor();
-		trace('wow new color fr??????: $newColor');
 		if(newColor != intendedColor) {
 			if(colorTween != null) {
 				colorTween.cancel();

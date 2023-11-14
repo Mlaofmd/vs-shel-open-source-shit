@@ -109,20 +109,16 @@ class Main extends Sprite
 
 	function onWindowFocusOut()
 	{
-		trace("Game unfocused"); //fr - PurSnake
 	}
 	
 	function onWindowFocusIn()
 	{
-		trace("Game focused"); //fr - PurSnake
 	}
 
 	private function init(?E:Event):Void
 	{
 		Application.current.window.focus();
 		
-		trace('Game launched');
-
 		if (hasEventListener(Event.ADDED_TO_STAGE)) removeEventListener(Event.ADDED_TO_STAGE, init);
 		
 		setupGame();
@@ -158,8 +154,6 @@ class Main extends Sprite
 
 		achievementToatManager = new AchievementsToastManager();
 		addChild(achievementToatManager);
-
-		flixel.FlxG.plugins.add(new flixel.addons.plugin.ScreenShotPlugin());
 
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#if DEVS_BUILD

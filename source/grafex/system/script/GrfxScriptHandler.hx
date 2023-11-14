@@ -36,7 +36,7 @@ import grafex.util.Utils;
 import flixel.util.FlxColor;
 import openfl.display.BlendMode;
 import flixel.FlxBasic;
-import flixel.system.FlxSound;
+
 import flixel.text.FlxText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 

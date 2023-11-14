@@ -12,7 +12,7 @@ import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.keyboard.FlxKey;
-import flixel.system.FlxSound;
+
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -60,13 +60,12 @@ class PauseSubState extends MusicBeatSubstate
 	var startedCountdown:Bool = false;
 
 	// public static var transCamera:FlxCamera; // Okay, I just cut this out.
+	// TRANSGENDER CAMERA -504brandon
 
 	public function new(x:Float, y:Float)
 	{
 		FlxG.mouse.visible = true;
 		super();
-
-		trace('Opened substate: ' + Type.getClassName(Type.getClass(this)));
 
 		if (Utils.difficulties.length < 2)
 			menuItemsOG.remove('Change Difficulty'); // No need to change difficulty if there is only one!

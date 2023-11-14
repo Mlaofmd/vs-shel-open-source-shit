@@ -73,7 +73,7 @@ import flixel.math.FlxMath;
 import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import flixel.system.FlxSound;
+
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import external.animateatlas.AtlasFrameMaker;
@@ -425,8 +425,6 @@ class PlayState extends MusicBeatState
         Paths.clearStoredMemory();
 
 		instance = this;
-
-		trace('Switched state to: ' + Type.getClassName(Type.getClass(this)));
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
@@ -1458,7 +1456,6 @@ class PlayState extends MusicBeatState
 
 		for (key => type in precacheList)
 		{
-			//trace('Key $key is type $type');
 			switch(type)
 			{
 				case 'image':
@@ -1544,7 +1541,6 @@ class PlayState extends MusicBeatState
                 if(found)
                 {
                     runtimeShaders.set(name, [frag, vert]);
-                    //trace('Found shader $name!');
                     return true;
                 }
             }
@@ -1586,7 +1582,6 @@ class PlayState extends MusicBeatState
 
         playbackRate = value;
         FlxAnimationController.globalSpeed = value;
-        trace('Anim speed: ' + FlxAnimationController.globalSpeed);
         Conductor.safeZoneOffset = (ClientPrefs.safeFrames / 60) * 1000 * value;
         setOnLuas('playbackRate', playbackRate);
         return value;
@@ -3374,7 +3369,6 @@ class PlayState extends MusicBeatState
 			}
 			++i;
 		}
-		trace(notesExist);
 		return notesExist;
 	}
 
@@ -3706,7 +3700,6 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Play Animation':
-				//trace('Anim to play: ' + value1);
 				var char:Character = dad;
 				switch(value2.toLowerCase().trim()) {
 					case 'bf' | 'boyfriend':
@@ -3849,13 +3842,11 @@ class PlayState extends MusicBeatState
 
 							for (script in luaArray) {
 								if(script.scriptName.contains(boyfriend.curCharacter)) {
-									//trace('removed script: ${script}');
 									luaArray.remove(script);
 								}
 							}
 							for (script in hscriptArray) {
 								if(script.scriptName.contains(boyfriend.curCharacter)) {
-									//trace('removed script: ${script}');
 									hscriptArray.remove(script);
 								}
 							}
@@ -3879,13 +3870,11 @@ class PlayState extends MusicBeatState
 
 							for (script in luaArray) {
 								if(script.scriptName.contains(dad.curCharacter)) {
-									//trace('removed script: ${script}');
 									luaArray.remove(script);
 								}
 							}
 							for (script in hscriptArray) {
 								if(script.scriptName.contains(dad.curCharacter)) {
-									//trace('removed script: ${script}');
 									hscriptArray.remove(script);
 								}
 							}
@@ -3922,13 +3911,11 @@ class PlayState extends MusicBeatState
 
 								for (script in luaArray) {
 									if(script.scriptName.contains(gf.curCharacter)) {
-										//trace('removed script: ${script}');
 										luaArray.remove(script);
 									}
 								}
 								for (script in hscriptArray) {
 									if(script.scriptName.contains(gf.curCharacter)) {
-										//trace('removed script: ${script}');
 										hscriptArray.remove(script);
 									}
 								}
@@ -4137,14 +4124,12 @@ class PlayState extends MusicBeatState
 
 	public function getControl(key:String) {
 		var pressed:Bool = Reflect.getProperty(controls, key);
-		//trace('Control result: ' + pressed);
 		return pressed;
 	}
 
 	public var transitioning = false;
 	public function endSong():Void
 	{
-		trace('Song "' + SONG.song + '" ended');
 		//Should kill you if you tried to cheat
 		if(!startingSong) {
 			notes.forEach(function(daNote:Note) {
@@ -4242,7 +4227,6 @@ class PlayState extends MusicBeatState
 					var difficulty:String = Utils.getDifficultyFilePath();
 
                     trace('LOADING NEXT SONG');
-					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
 
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
@@ -4258,7 +4242,6 @@ class PlayState extends MusicBeatState
 		    }
 			else
 			{
-				trace('Switching back to FreeplayState');
 				cancelMusicFadeTween();
 				CustomFadeTransition.nextCamera = camOther;
 				if(FlxTransitionableState.skipNextTransIn) {
@@ -4711,7 +4694,6 @@ class PlayState extends MusicBeatState
 	{
 		var eventKey:FlxKey = event.keyCode;
 		var key:Int = getKeyFromEvent(eventKey);
-		//trace('Pressed: ' + eventKey);
 
 		if(!ClientPrefs.controllerMode && key > -1) keyReleased(key);
 	}
@@ -5297,7 +5279,6 @@ class PlayState extends MusicBeatState
 	var carTimer:FlxTimer;
 	function fastCarDrive()
 	{
-		//trace('Car drive');
 		FlxG.sound.play(Paths.soundRandom('carPass', 0, 1), 0.7);
 
 		fastCar.velocity.x = (FlxG.random.int(170, 220) / FlxG.elapsed) * 3;
